@@ -5,7 +5,9 @@ var gulp = require('gulp'),
     reload = browserSync.reload,
     autoprefixer = require('gulp-autoprefixer'),
     clean = require('gulp-clean'),
+    merge = require('merge-stream'),
     concat = require('gulp-concat'),
+    browserify = require('gulp-browserify'),
     newer = require('gulp-newer'),
     imagemin = require('gulp-imagemin');
 
@@ -16,8 +18,6 @@ minify = require('gulp-minify');
 rename = require('gulp-rename');
 cssmin = require('gulp-cssmin');
 htmlmin = require('gulp-htmlmin');
-browserify = require('gulp-browserify');
-merge = require('merge-stream');
 */
 
 var SOURCEPATHS = {
@@ -49,16 +49,23 @@ gulp.task('clean-scripts', function(){
 
 // Styles
 gulp.task('sass', function(){
-  return gulp.src(SOURCEPATHS.sassSource)
+  var bootstrapCss = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
+  var sassFiles;
+  
+  sassFiles = gulp.src(SOURCEPATHS.sassSource)
     .pipe(autoprefixer())
     .pipe(sass({outputStyle:'expanded'}).on('error', sass.logError))
-    .pipe(gulp.dest(APPPATHS.css))
+    return merge(bootstrapCss, sassFiles)
+      .pipe(concat('app.css'))
+      .pipe(gulp.dest(APPPATHS.css))
 });
 
+// Scripts
 gulp.task('scripts', ['clean-scripts'], function(){
   gulp.src(SOURCEPATHS.jsSource)
     .pipe(concat('app.js'))
-    .pipe(gulp.dest(APPPATHS.js));
+    .pipe(browserify())
+    .pipe(gulp.dest(APPPATHS.js))
 });
 
 //Images
@@ -82,7 +89,7 @@ gulp.task('copy', ['clean-html'], function(){
 
 // Server reload
 gulp.task('serve', ['sass'], function(){
-  browserSync.init([APPPATHS.root + '/*.html', APPPATHS.css + '/*.css', APPPATHS.js + '/*.js'],{
+  browserSync.init([APPPATHS.root + '/*.html', APPPATHS.css + '/*.css', APPPATHS.js + '/*.js', APPPATHS.img + "/**/*.*"],{
     server: {
       baseDir : APPPATHS.root
     }
@@ -94,7 +101,7 @@ gulp.task('watch', ['serve', 'copy', 'sass', 'scripts', 'images', 'moveFonts'], 
   gulp.watch([SOURCEPATHS.sassSource], ['sass']);
   gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
-  gulp.watch([SOURCEPATHS.jsSource], ['images']);
+  gulp.watch([SOURCEPATHS.imgSource], ['images']);
 });
 // Default
 gulp.task('default', ['watch']);
