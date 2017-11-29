@@ -4,7 +4,12 @@
   "description": "Corporate site for the course Learn PSD to Responsive Parallax HTML, SASS, Gulp, NPM",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "preinstall": "mkdir -p src/scss/partials && mkdir -p src/js && mkdir -p src/img && mkdir -p src/fonts",
+    "postinstall": "touch src/index.html && npm run sassfiles && npm run jsfiles",
+    "sassfiles": "touch src/scss/main.scss src/scss/partials/_variables.scss src/scss/partials/_mixins.scss",
+    "jsfiles": "touch src/js/main.js"
   },
   "repository": {
     "type": "git",
