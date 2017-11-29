@@ -23,7 +23,8 @@ htmlmin = require('gulp-htmlmin');
 var SOURCEPATHS = {
   htmlSource : 'src/*.html',
   sassSource : 'src/scss/*.scss',
-  jsSource :   'src/js/**',
+  jsSource :   ['src/js/**',
+               'node_modules/respond.js/dest/respond.min.js'],
   imgSource :  'src/img/**'
 }
 var APPPATHS = {
