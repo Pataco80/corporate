@@ -55,6 +55,12 @@ gulp.task('sass', function(){
     .pipe(gulp.dest(APPPATHS.css))
 });
 
+gulp.task('scripts', ['clean-scripts'], function(){
+  gulp.src(SOURCEPATHS.jsSource)
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest(APPPATHS.js));
+});
+
 //Images
 gulp.task('images', function(){
   return gulp.src(SOURCEPATHS.imgSource)
