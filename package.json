@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
-    "preinstall": "mkdir -p src/scss/partials && mkdir -p src/js && mkdir -p src/img && mkdir -p src/fonts",
-    "postinstall": "touch src/index.html && npm run sassfiles && npm run jsfiles",
+    "preinstall": "mkdir -p src/scss/partials/font-awesome && mkdir -p src/js && mkdir -p src/img && mkdir -p src/fonts",
+    "postinstall": "touch src/index.html && npm run sassfiles && npm run jsfiles && npm run fontAwesome",
     "sassfiles": "touch src/scss/main.scss src/scss/partials/_variables.scss src/scss/partials/_mixins.scss",
-    "jsfiles": "touch src/js/main.js"
+    "jsfiles": "touch src/js/main.js",
+    "fontAwesome": "cp -r node_modules/font-awesome-sass/assets/stylesheets/ src/scss/partials"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
   "homepage": "https://github.com/Pataco80/corporate#readme",
   "devDependencies": {
     "browser-sync": "^2.18.13",
+    "font-awesome-sass": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-browserify": "^0.5.1",

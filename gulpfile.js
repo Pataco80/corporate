@@ -25,7 +25,9 @@ var SOURCEPATHS = {
   sassSource : 'src/scss/*.scss',
   jsSource :   ['src/js/**',
                'node_modules/respond.js/dest/respond.min.js'],
-  imgSource :  'src/img/**'
+  imgSource :  'src/img/**',
+  fontSource : ['./node_modules/bootstrap/dist/fonts/*.{eot,svg,ttf,woff,woff2}',
+                './node_modules/font-awesome-sass/assets/fonts/font-awesome/*.{eot,svg,ttf,woff,woff2}']
 }
 var APPPATHS = {
   root :'app/',
@@ -78,7 +80,7 @@ gulp.task('images', function(){
 });
 // Move fonts
 gulp.task('moveFonts', function(){
-  gulp.src('./node_modules/bootstrap/dist/fonts/*.{eot,svg,ttf,woff,woff2}')
+  gulp.src(SOURCEPATHS.fontSource)
   .pipe(gulp.dest(APPPATHS.fonts))
 });
 
