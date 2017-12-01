@@ -10,7 +10,7 @@
     "postinstall": "touch src/index.html && npm run sassfiles && npm run jsfiles && npm run fontAwesome",
     "sassfiles": "touch src/scss/main.scss src/scss/partials/_variables.scss src/scss/partials/_mixins.scss",
     "jsfiles": "touch src/js/main.js",
-    "fontAwesome": "cp -r node_modules/font-awesome-sass/assets/stylesheets/ src/scss/partials"
+    "fontAwesome": "cp -r node_modules/font-awesome-sass/assets/stylesheets/ src/scss/partials && mv src/scss/partials/_font-awesome.scss src/scss/font-awesome.scss"
   },
   "repository": {
     "type": "git",
